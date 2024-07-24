@@ -4,15 +4,40 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>溢出漏洞复现&#39; | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="获取vm和文件系统  环境搭建把foritos.ovf导入vmware，默认账户是admin:空  配置网络1234567891011config system interfaceedit port1set mode staticset ip 192.168.18.99 255.255.255.0end#下面这个配置出网是为了gdbserver连接config router staticedit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="溢出漏洞复现&#39;">
+<meta property="og:url" content="http://example.com/2024/07/24/%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="获取vm和文件系统  环境搭建把foritos.ovf导入vmware，默认账户是admin:空  配置网络1234567891011config system interfaceedit port1set mode staticset ip 192.168.18.99 255.255.255.0end#下面这个配置出网是为了gdbserver连接config router staticedit">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710504053632-d4c821e8-8b49-4a1f-a9a0-bde228c1f6e1.png#averageHue=%23f1f1f1&clientId=u712b743e-7c20-4&from=paste&height=356&id=u8cdff806&originHeight=534&originWidth=521&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=24246&status=done&style=none&taskId=u6cd9f234-5434-4a95-bec4-35b14971c09&title=&width=347.3333333333333">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710504100048-09b77e31-2867-4d10-87a7-dc1d4d912dc9.png#averageHue=%23ecebeb&clientId=u712b743e-7c20-4&from=paste&height=503&id=u083d12ba&originHeight=754&originWidth=907&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=29099&status=done&style=none&taskId=u4a0024c9-ae0b-4f78-af5b-9d412eeb4bf&title=&width=604.6666666666666">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710503793227-16f8f838-eb99-4005-9167-f74a235a105a.png#averageHue=%23dedddc&clientId=u712b743e-7c20-4&from=paste&height=690&id=u274f9a15&originHeight=1035&originWidth=2435&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=100367&status=done&style=none&taskId=u736819fe-f8e7-4a4d-854a-9532e3be9a9&title=&width=1623.3333333333333">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710504173037-f01c958b-3b1a-43e3-91be-ecf321ff271a.png#averageHue=%23f8f6f3&clientId=u712b743e-7c20-4&from=paste&height=658&id=ud2f31bc2&originHeight=987&originWidth=1228&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=27587&status=done&style=none&taskId=ua7a80e41-008c-44b5-8039-9dce6eb7b49&title=&width=818.6666666666666">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710504191864-cf7036b8-c52f-486e-8f37-20c7885e620d.png#averageHue=%23f9f6f4&clientId=u712b743e-7c20-4&from=paste&height=167&id=u24103d59&originHeight=250&originWidth=999&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=5523&status=done&style=none&taskId=u50bf3d90-83f9-4487-9053-5262ec5f957&title=&width=666">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710504209511-7b057934-8abc-4c9f-b61d-5392db889255.png#averageHue=%23f5eeee&clientId=u712b743e-7c20-4&from=paste&height=91&id=u12c6a694&originHeight=137&originWidth=718&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=2671&status=done&style=none&taskId=u700d0738-606b-4fc6-a1da-786e212943c&title=&width=478.6666666666667">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710937830023-bd5af0af-67bd-4db4-b3e2-c584ef167571.png#averageHue=%23d4d4d4&clientId=u367e3090-40f7-4&from=paste&height=752&id=uc316e7c5&originHeight=1128&originWidth=1999&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=84193&status=done&style=none&taskId=u0e863ebf-28b1-40e6-96de-25c9746eeaa&title=&width=1332.6666666666667">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710937816352-aa9c3d37-b16a-483a-ac1c-abd91756e383.png#averageHue=%23cdcccc&clientId=u367e3090-40f7-4&from=paste&height=739&id=u72a57459&originHeight=1108&originWidth=1809&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=74374&status=done&style=none&taskId=ud67421ae-6d59-432e-bc45-6dc5ea2878b&title=&width=1206">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710937849565-d1192681-fc25-4300-aa45-10f0c111c22e.png#averageHue=%23d5d3d1&clientId=u367e3090-40f7-4&from=paste&height=757&id=u732ca622&originHeight=1135&originWidth=2141&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=96132&status=done&style=none&taskId=uda901d4b-459f-4295-8248-9485a4092c2&title=&width=1427.3333333333333">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710937858413-56696aaa-9b39-4bca-9c0e-2367175a1858.png#averageHue=%23cdcccc&clientId=u367e3090-40f7-4&from=paste&height=803&id=uec5f0db0&originHeight=1204&originWidth=1889&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=152166&status=done&style=none&taskId=uf7c2e789-41d3-4c84-9d6d-026aee88e5c&title=&width=1259.3333333333333">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710937884201-a443e877-9e37-4866-a4c0-ef4a152aba7e.png#averageHue=%23d7d6d6&clientId=u367e3090-40f7-4&from=paste&height=764&id=u7aa5b9df&originHeight=1146&originWidth=2168&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=111423&status=done&style=none&taskId=u6876e4cf-0618-4e50-bc25-172703f5d7f&title=&width=1445.3333333333333">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710773925395-a62d1a23-67d4-41e3-8791-4f677e882e64.png#averageHue=%23fdfdfd&clientId=u99ef5484-7635-4&from=paste&height=401&id=u3c55f532&originHeight=602&originWidth=1043&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=48603&status=done&style=none&taskId=u7e384493-6db9-47c0-9d97-b88674e5f77&title=&width=695.3333333333334">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710773946281-2916302d-2e21-490e-ae36-9e1898e09b18.png#averageHue=%23fefefe&clientId=u99ef5484-7635-4&from=paste&height=435&id=ub0ab9c2d&originHeight=652&originWidth=901&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=46440&status=done&style=none&taskId=ue04010a4-e440-4863-84dd-d0465eb6574&title=&width=600.6666666666666">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1711175478698-2fcd58f4-30a3-4d52-be5c-bcc7445bf9b8.png#averageHue=%23f6f6f6&clientId=u2ebf1549-3b7d-4&from=paste&height=514&id=u780ae668&originHeight=771&originWidth=1758&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=87829&status=done&style=none&taskId=udcb80418-fcf1-4944-bd53-59b5edafc28&title=&width=1172">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1711168862973-f8281867-ea64-4cce-9bbc-c775bd00adf4.png#averageHue=%23060403&clientId=u3ec81eae-c232-4&from=paste&height=237&id=u83d24370&originHeight=355&originWidth=1323&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=73074&status=done&style=none&taskId=u8bbfa17b-e851-4879-8b2c-ea5f6a63c05&title=&width=882">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1711168977425-d2505664-8813-4ccf-bea3-e5721745ce67.png#averageHue=%23fcfcfc&clientId=u3ec81eae-c232-4&from=paste&height=641&id=u222ce960&originHeight=962&originWidth=1286&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=93426&status=done&style=none&taskId=uf168d40a-be75-4789-8987-67392a349d3&title=&width=857.3333333333334">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1711170105520-a17e3f3c-2366-48ea-ab65-7067a2279290.png#averageHue=%23fcfbfb&clientId=u3ec81eae-c232-4&from=paste&height=124&id=ue42a18ff&originHeight=186&originWidth=520&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=9595&status=done&style=none&taskId=u39423352-a2d3-4ddd-abd1-ad0b81edd83&title=&width=346.6666666666667">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1711173248141-3e5001fc-088a-42c5-8580-89d6130fa49b.png#averageHue=%23fdfdfd&clientId=u2ebf1549-3b7d-4&from=paste&height=359&id=uf9b18a4e&originHeight=539&originWidth=1263&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=43240&status=done&style=none&taskId=u4a41b7ea-0782-43b7-a87b-bb40a167794&title=&width=842">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1711174387682-5c6c3a1e-7e93-4bb4-b1b6-d0b556266ef6.png#averageHue=%23380c2a&clientId=u2ebf1549-3b7d-4&from=paste&height=294&id=vm2OU&originHeight=671&originWidth=746&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=44820&status=done&style=none&taskId=u3ff3273a-ccf6-426e-814e-1899365567a&title=&width=326.3333435058594">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1711174439341-bce1b0f5-4da9-4a2d-81fe-6a040dc010e8.png#averageHue=%23110b0a&clientId=u2ebf1549-3b7d-4&from=paste&height=244&id=u1f29be7b&originHeight=597&originWidth=889&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=44092&status=done&style=none&taskId=ucb5f4021-99c2-4fc1-93e8-efeda09d532&title=&width=363">
+<meta property="article:published_time" content="2024-07-24T06:54:38.000Z">
+<meta property="article:modified_time" content="2024-07-24T06:55:29.268Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/35802705/1710504053632-d4c821e8-8b49-4a1f-a9a0-bde228c1f6e1.png#averageHue=%23f1f1f1&clientId=u712b743e-7c20-4&from=paste&height=356&id=u8cdff806&originHeight=534&originWidth=521&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=24246&status=done&style=none&taskId=u6cd9f234-5434-4a95-bec4-35b14971c09&title=&width=347.3333333333333">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -67,9 +92,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="&#39;foritos-溢出漏洞复现" class="h-entry article article-type-&#39;foritos" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="&#39;foritos-溢出漏洞复现" class="h-entry article article-type-&#39;foritos" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/24/%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="article-date">
   <time class="dt-published" datetime="2024-07-24T06:54:38.000Z" itemprop="datePublished">2024-07-24</time>
@@ -82,8 +105,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/24/%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">溢出漏洞复现&#39;</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      溢出漏洞复现&#39;
     </h1>
   
 
@@ -168,62 +191,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/24/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2024-07-24T04:53:07.338Z" itemprop="datePublished">2024-07-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/24/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2024/07/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/07/24/hello-world/" data-id="clyzdgkbi0000fwu6ak9p5qnc" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
